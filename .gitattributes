@@ -1,0 +1,4 @@
+**/winlibs/** linguist-vendored
+**/maclibs/** linguist-vendored
+**/executables/** linguist-vendored
+**/vendor/** linguist-vendored
