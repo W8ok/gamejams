@@ -30,7 +30,7 @@ void collide_needle_entity(Entity* e, Needle* needle)
         const float KNOCKBACK_FORCE = 300.0f;
         e->vel = Vector2Add(
             e->vel,
-            Vector2Scale(needle->dir, KNOCKBACK_FORCE * e->hitbox.mass)
+            Vector2Scale(needle->dir, KNOCKBACK_FORCE / e->hitbox.mass)
         );
     }
     else if (!inside)

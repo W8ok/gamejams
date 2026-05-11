@@ -1,6 +1,7 @@
 #include "smol_skeleton.h"
 #include "entities.h"
 #include "utils.h"
+#include <raymath.h>
 
 void spawn_smol_skeleton(EntityList* list, NeedleList* needles, Vector2 pos)
 {
@@ -32,4 +33,15 @@ void spawn_smol_skeleton(EntityList* list, NeedleList* needles, Vector2 pos)
     spawn_needle(needles, needle);
 
     DA_APPEND(list, e);
+}
+
+void ai_smol_skeleton(Entity* skeleton, Entity* player, float dt)
+{
+    const float ACCELERATION = 1000;
+
+    Vector2 dir = Vector2Subtract(player->pos, skeleton->pos);
+    dir = Vector2Normalize(dir);
+
+    skeleton->vel.x += dir.x * ACCELERATION * dt;
+    skeleton->vel.y += dir.y * ACCELERATION * dt;
 }

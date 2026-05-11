@@ -1,5 +1,6 @@
 #include <raylib.h>
 #include "entities/entities.h"
+#include "world/world.h"
 
 int main(void)
 {
@@ -7,7 +8,10 @@ int main(void)
     InitWindow(1280, 720, "game");
 
     Entities e = {0};
+    World w = {0};
+
     entity_init(&e);
+    world_init(&w);
 
     while (!WindowShouldClose())
     {
@@ -21,6 +25,8 @@ int main(void)
         DrawFPS(10, 10);
 
         entity_render(&e);
+
+        map_render(&w.map);
 
         EndDrawing();
     }

@@ -5,7 +5,17 @@ void entity_init(Entities* e)
 {
     spawn_player(e, &e->needles);
     spawn_dummy(&e->all, (Vector2){300,300});
-    spawn_smol_skeleton(&e->all, &e->needles, (Vector2){100,100});
+    spawn_smol_skeleton(&e->all, &e->needles, (Vector2){500,500});
+}
+
+void _entity_ai(Entities* e, Entity* ent, float dt)
+{
+    Entity* player = &e->all.data[e->player_idx];
+    switch (ent->type)
+    {
+        default: break;
+        case ENTITY_SMOL_SKELETON: ai_smol_skeleton(ent, player, dt);
+    }
 }
 
 void entity_update(Entities* e, float dt)
@@ -32,6 +42,8 @@ void entity_update(Entities* e, float dt)
         collide_needle_entity(ent, &e->needles.data[player->needle_id]);
         entity_inter_collision(&e->all);
 
+        _entity_ai(e, ent, dt);
+
         const float DRAG = 5.0f;
         ent->vel.x -= ent->vel.x * DRAG * dt;
         ent->vel.y -= ent->vel.y * DRAG * dt;
@@ -43,7 +55,6 @@ void entity_update(Entities* e, float dt)
 
 void entity_render(Entities* e)
 {
-    Entity* player = &e->all.data[e->player_idx];
     needle_render(&e->needles);
 
     for (size_t i = 0; i < e->all.count; i++)

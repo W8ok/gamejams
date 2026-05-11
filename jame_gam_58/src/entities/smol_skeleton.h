@@ -5,3 +5,4 @@
 
 struct EntityList;
 void spawn_smol_skeleton(struct EntityList* list, NeedleList* needles, Vector2 pos);
+void ai_smol_skeleton(struct Entity* skeleton, struct Entity* player, float dt);
