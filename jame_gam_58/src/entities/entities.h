@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+
 typedef enum {
     ENTITY_NONE = 0,
     ENTITY_PLAYER,
@@ -42,10 +43,13 @@ typedef struct EntityList {
     size_t count;
 } EntityList;
 
+typedef struct Map Map;
+
 typedef struct Entities {
     EntityList all;
     NeedleList needles;
     size_t player_idx;
+    Map* map;
 } Entities;
 
 void entity_init(Entities* e);

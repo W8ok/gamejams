@@ -43,9 +43,10 @@ void needle_render(NeedleList* needles)
     }
 }
 
+extern Camera2D cam;
 static void _needle_follow_mouse(Entity* player, Needle* needle)
 {
-    Vector2 mouse = GetMousePosition();
+    Vector2 mouse = GetScreenToWorld2D(GetMousePosition(), cam);
 
     Vector2 size = {
         player->hitbox.offset.x * 2,

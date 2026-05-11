@@ -1,11 +1,12 @@
 #include "entities.h"
 #include "utils.h"
+#include "../world/map.h"
 
 void entity_init(Entities* e)
 {
     spawn_player(e, &e->needles);
-    spawn_dummy(&e->all, (Vector2){300,300});
-    spawn_smol_skeleton(&e->all, &e->needles, (Vector2){500,500});
+    //spawn_dummy(&e->all, (Vector2){300,300});
+    //spawn_smol_skeleton(&e->all, &e->needles, (Vector2){500,500});
 }
 
 void _entity_ai(Entities* e, Entity* ent, float dt)
@@ -50,6 +51,28 @@ void entity_update(Entities* e, float dt)
 
         ent->pos.x += ent->vel.x * dt;
         ent->pos.y += ent->vel.y * dt;
+
+        // Map bounds checking
+        if (ent->pos.x >= e->map->size.x / 2 - ent->hitbox.offset.x * 2)
+        {
+            ent->pos.x = e->map->size.x / 2 - ent->hitbox.offset.x * 2;
+            ent->vel.x = 0;
+        }
+        if (ent->pos.y >= e->map->size.y / 2 - ent->hitbox.offset.y * 2)
+        {
+            ent->pos.y = e->map->size.y / 2 - ent->hitbox.offset.y * 2;
+            ent->vel.y = 0;
+        }
+        if (ent->pos.x <= -e->map->size.x / 2)
+        {
+            ent->pos.x = -e->map->size.x / 2;
+            ent->vel.x = 0;
+        }
+        if (ent->pos.y <= -e->map->size.y / 2)
+        {
+            ent->pos.y = -e->map->size.y / 2;
+            ent->vel.y = 0;
+        }
     }
 }
 
