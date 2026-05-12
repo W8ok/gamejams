@@ -6,6 +6,8 @@
 #include "needle.h"
 #include "smol_skeleton.h"
 
+#include "../world/map.h"
+
 #include <stdlib.h>
 #include <stdbool.h>
 
@@ -35,6 +37,7 @@ typedef struct Entity {
         float radius;
     } hitbox;
 
+    Vector2 animation_state;
 } Entity;
 
 typedef struct EntityList {
@@ -43,15 +46,18 @@ typedef struct EntityList {
     size_t count;
 } EntityList;
 
-typedef struct Map Map;
+typedef struct Textures {
+    Texture2D player;
+} Textures;
 
 typedef struct Entities {
     EntityList all;
     NeedleList needles;
     size_t player_idx;
+    Textures tex;
     Map* map;
 } Entities;
 
 void entity_init(Entities* e);
 void entity_update(Entities* e, float dt);
-void entity_render(Entities* e);
+void entity_render(Entities* e, float dt);

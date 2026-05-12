@@ -4,6 +4,8 @@
 
 void entity_init(Entities* e)
 {
+    e->tex.player = LoadTexture("assets/player.png");
+
     spawn_player(e, &e->needles);
     //spawn_dummy(&e->all, (Vector2){300,300});
     //spawn_smol_skeleton(&e->all, &e->needles, (Vector2){500,500});
@@ -49,6 +51,12 @@ void entity_update(Entities* e, float dt)
         ent->vel.x -= ent->vel.x * DRAG * dt;
         ent->vel.y -= ent->vel.y * DRAG * dt;
 
+        if (ent->vel.x > -0.1 && ent->vel.x < 0.1)
+            ent->vel.x = 0;
+
+        if (ent->vel.y > -0.1 && ent->vel.y < 0.1)
+            ent->vel.y = 0;
+
         ent->pos.x += ent->vel.x * dt;
         ent->pos.y += ent->vel.y * dt;
 
@@ -76,7 +84,7 @@ void entity_update(Entities* e, float dt)
     }
 }
 
-void entity_render(Entities* e)
+void entity_render(Entities* e, float dt)
 {
     needle_render(&e->needles);
 
@@ -94,8 +102,9 @@ void entity_render(Entities* e)
         Color color;
         switch (ent->type)
         {
+            default: break;
             case ENTITY_NONE:               color = PINK;       break;
-            case ENTITY_PLAYER:             color = RED;        break;
+            case ENTITY_PLAYER:             player_render(&e->tex.player, &e->all.data[e->player_idx], dt); break;
             case ENTITY_TRAINING_DUMMY:     color = YELLOW;     break;
             case ENTITY_SMOL_SKELETON:      color = WHITE;      break;
         }

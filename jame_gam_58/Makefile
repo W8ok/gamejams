@@ -40,10 +40,10 @@ WEB_LIBS = vendor/raylib/src/libraylib.web.a
 
 vendor/raylib/src/libraylib.web.a:
 	@mkdir -p vendor
-	if [ ! -d "vendor/raylib" ]; then \
-		git clone https://github.com/raysan5/raylib.git vendor/raylib; \
+	@if [ ! -d "vendor/raylib" ]; then \
+		git clone --branch 6.0 https://github.com/raysan5/raylib.git vendor/raylib; \
 	fi
-	if [ ! -f "vendor/raylib/src/libraylib.web.a" ]; then \
+	@if [ ! -f "vendor/raylib/src/libraylib.web.a" ]; then \
 		cd vendor/raylib/src && make PLATFORM=PLATFORM_WEB -B; \
 	fi
 
@@ -61,8 +61,7 @@ web-run: web
 	emrun $(WEB_TARGET)
 
 web-zip: web
-	cd $(EXEC)/web && zip -r ../../$(PROJECT_NAME)-web.zip *
-	@echo "Created $(PROJECT_NAME)-web.zip"
+	@cd $(EXEC)/web && zip -r ../../$(PROJECT_NAME)-web.zip *
 
 clean-web:
 	rm -rf $(EXEC)/web obj/web vendor/raylib

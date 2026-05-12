@@ -18,7 +18,7 @@ int main(void)
 
     e.map = &w.map;
 
-    while (true)
+    while (!WindowShouldClose())
     {
         float dt = GetFrameTime();
         campera_update(&cam, &e.all.data[e.player_idx], dt);
@@ -32,7 +32,7 @@ int main(void)
 
         wave_update(&w.wave, &w.map, &e, dt);
 
-        entity_render(&e);
+        entity_render(&e, dt);
 
         map_render(&w.map);
 
@@ -41,9 +41,6 @@ int main(void)
         DrawFPS(10, 10);
 
         EndDrawing();
-
-        if (WindowShouldClose())
-            break;
     }
 
     CloseWindow();
