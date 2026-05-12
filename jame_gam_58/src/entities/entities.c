@@ -17,7 +17,10 @@ void _entity_ai(Entities* e, Entity* ent, float dt)
     switch (ent->type)
     {
         default: break;
-        case ENTITY_SMOL_SKELETON: ai_smol_skeleton(ent, player, dt);
+        case ENTITY_SMOL_SKELETON: ai_smol_skeleton(ent, player, dt); break;
+        case ENTITY_FAT_SKELETON: ai_fat_skeleton(ent, player, dt); break;
+        case ENTITY_FAST_SKELETON: ai_fast_skeleton(ent, player, dt); break;
+        case ENTITY_NECROMANCER: ai_necromancer(ent, player, dt, &e->all); break;
     }
 }
 
@@ -104,9 +107,14 @@ void entity_render(Entities* e, float dt)
         {
             default: break;
             case ENTITY_NONE:               color = PINK;       break;
-            case ENTITY_PLAYER:             player_render(&e->tex.player, &e->all.data[e->player_idx], dt); break;
+            case ENTITY_PLAYER:             
+                player_render(&e->tex.player, &e->all.data[e->player_idx], dt);
+                continue;
             case ENTITY_TRAINING_DUMMY:     color = YELLOW;     break;
             case ENTITY_SMOL_SKELETON:      color = WHITE;      break;
+            case ENTITY_FAT_SKELETON:       color = WHITE;      break;
+            case ENTITY_FAST_SKELETON:      color = WHITE;      break;
+            case ENTITY_NECROMANCER:        color = PURPLE;     break;
         }
 
         DrawRectangleV(e->all.data[i].pos, size, color);

@@ -18,7 +18,10 @@ void _spawn_random_enemy(WaveSystem* wave, Entities* e)
     wave->spawn_timer = (float)GetRandomValue(1, 5);
 
     // Future me add a random thingy to spawn enemies at random given parameters
-    spawn_smol_skeleton(&e->all, &e->needles, wave->next_pos);
+    //spawn_smol_skeleton(&e->all, &e->needles, wave->next_pos);
+    //spawn_fat_skeleton(&e->all, wave->next_pos);
+    //spawn_fast_skeleton(&e->all, wave->next_pos);
+    spawn_necromancer(&e->all, wave->next_pos);
 }
 
 void wave_update(WaveSystem* wave, Map* map, Entities* e, float dt)
@@ -39,6 +42,9 @@ void wave_update(WaveSystem* wave, Map* map, Entities* e, float dt)
             && wave->active)
     {
         _wave_next(wave);
+        // Delete all entities except for the player on new wave
+        e->all.count = 1;
+        e->needles.count = 1;
         return;
     }
 

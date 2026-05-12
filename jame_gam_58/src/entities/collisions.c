@@ -81,6 +81,7 @@ void entity_inter_collision(EntityList* list)
                 case ENTITY_PLAYER:
                     switch (b->type)
                     {
+                        // This is where you would take damage :3
                         default: _bounce(a, b); break;
                     }
                     break;
@@ -91,6 +92,13 @@ void entity_inter_collision(EntityList* list)
                         default: _bounce(a, b); break;
                     }
                     break;
+
+                case ENTITY_NECROMANCER:
+                    switch (b->type)
+                    {
+                        default: _bounce(a, b); break;
+                        case ENTITY_FAST_SKELETON: break;
+                    }
             }
         }
     }

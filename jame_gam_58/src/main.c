@@ -1,6 +1,7 @@
 #include <raylib.h>
 #include "entities/entities.h"
 #include "world/world.h"
+#include <stdio.h>
 
 Camera2D cam;
 
@@ -21,9 +22,9 @@ int main(void)
     while (!WindowShouldClose())
     {
         float dt = GetFrameTime();
-        campera_update(&cam, &e.all.data[e.player_idx], dt);
 
         entity_update(&e, dt);
+        campera_update(&cam, &e.all.data[e.player_idx], dt);
 
         BeginDrawing();
         BeginMode2D(cam);
@@ -39,6 +40,10 @@ int main(void)
         EndMode2D();
 
         DrawFPS(10, 10);
+
+        char entity_count[64];
+        sprintf(entity_count, "Entites: %zu", e.all.count); 
+        DrawText(entity_count, 10, 40, 20, GREEN);
 
         EndDrawing();
     }

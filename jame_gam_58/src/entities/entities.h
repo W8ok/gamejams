@@ -5,6 +5,9 @@
 #include "dummy.h"
 #include "needle.h"
 #include "smol_skeleton.h"
+#include "fat_skeleton.h"
+#include "fast_skeleton.h"
+#include "necromancer.h"
 
 #include "../world/map.h"
 
@@ -17,6 +20,9 @@ typedef enum {
     ENTITY_PLAYER,
     ENTITY_TRAINING_DUMMY,
     ENTITY_SMOL_SKELETON,
+    ENTITY_FAT_SKELETON,
+    ENTITY_FAST_SKELETON,
+    ENTITY_NECROMANCER,
 } EntityType;
 
 typedef struct Entity {

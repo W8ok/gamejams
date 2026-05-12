@@ -45,7 +45,10 @@ void player_render(Texture2D* tex, Entity* p, float dt)
     static int state = 0;
     static float animation_timer = 0.1;
 
-    bool moving = (p->vel.x != 0 || p->vel.y != 0);
+    bool moving = (p->vel.x < -5
+            || p->vel.x > 5
+            || p->vel.y < -5
+            || p->vel.y > 5);
 
     int direction = 0; // down
     if (p->vel.y < 0)
@@ -57,7 +60,7 @@ void player_render(Texture2D* tex, Entity* p, float dt)
 
         if (animation_timer <= 0)
         {
-            animation_timer = 0.5;
+            animation_timer = 0.3;
 
             // Alternate between 1 and 2
             if (state == 1)
